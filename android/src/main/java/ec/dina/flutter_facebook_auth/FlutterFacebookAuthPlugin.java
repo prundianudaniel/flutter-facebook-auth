@@ -42,7 +42,6 @@ public class FlutterFacebookAuthPlugin implements MethodCallHandler, FlutterPlug
      * Plugin registration.
      */
     public static void registerWith(Registrar registrar) {
-        Log.i("facebook:", "registerWith");
         FlutterFacebookAuthPlugin plugin = new FlutterFacebookAuthPlugin();
         plugin.onAttachedToEngine(registrar.messenger());
     }

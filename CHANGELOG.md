@@ -1,5 +1,8 @@
+## 0.3.3
+- removed http and meta package
+
 ## 0.3.2
-- flutter: ">=1.0.0 <2.0.0"
+- flutter: ">=1.10.0 <2.0.0"
 
 ## 0.3.1+1
 - Added badge version

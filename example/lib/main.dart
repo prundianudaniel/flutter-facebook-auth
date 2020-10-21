@@ -21,8 +21,6 @@ class _MyAppState extends State<MyApp> {
   AccessToken _accessToken;
   bool _checking = true;
 
-  String twitterStatus = "No Logged";
-
   @override
   void initState() {
     super.initState();

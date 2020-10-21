@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'package:meta/meta.dart' show required;
 import 'dart:io' show Platform;
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'src/access_token.dart';
@@ -36,7 +34,7 @@ class FacebookAuth {
     ); // accessToken
   }
 
-  /// [fields] string of fileds like birthday,email,hometown
+  /// [fields] string of fields like birthday,email,hometown
   Future<dynamic> getUserData({String fields = "name,email,picture"}) async {
     final result =
         await _channel.invokeMethod("getUserData", {"fields": fields});
@@ -58,41 +56,10 @@ class FacebookAuth {
         return AccessToken.fromJson(Map<String, dynamic>.from(result));
       }
       return null;
-    } catch (e) {
+    } catch (e, s) {
       print(e);
+      print(s);
       return null;
     }
   }
-
-  /// check what permisions was granted or declined while login process
-  Future<FacebookAuthPermissions> permissions(String token) async {
-    final url = "https://graph.facebook.com/me/permissions?access_token=$token";
-
-    final res = await http.get(url);
-    final parsed = jsonDecode(res.body);
-
-    List<String> granted = [];
-    List<String> declined = [];
-
-    if (res.statusCode == 200) {
-      for (final item in parsed['data'] as List) {
-        final String permission = item['permission'];
-        final String status = item['status'];
-        if (status == 'granted') {
-          granted.add(permission);
-        } else {
-          declined.add(permission);
-        }
-      }
-      return FacebookAuthPermissions(granted: granted, declined: declined);
-    }
-    throw new PlatformException(
-        code: "500", message: parsed['error']['message']);
-  }
-}
-
-class FacebookAuthPermissions {
-  final List<String> granted, declined;
-
-  FacebookAuthPermissions({@required this.granted, @required this.declined});
 }

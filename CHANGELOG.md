@@ -1,5 +1,5 @@
 ## 0.3.3
-- removed http and meta package
+- removed http and meta packages
 
 ## 0.3.2
 - flutter: ">=1.10.0 <2.0.0"
